@@ -43,3 +43,23 @@ exports.register = async (req, res, next) => {
     await register(user, req.body.password);
     next(); // pass to authController.login
 };
+
+exports.account = async (req, res, next) => {
+    res.render('account', { title: 'Edit Your Account' });
+};
+
+exports.updateAccount = async (req, res, next) => {
+    const updates = {
+        name: req.body.name,
+        email: req.body.email,
+    };
+
+    const user = await User.findByIdAndUpdate(
+        { _id: req.user._id },
+        { $set: updates },
+        { new: true, runValidators: true, context: 'query' }
+    );
+
+    req.flash('success', 'Updated the profile!');
+    res.redirect('back');
+};

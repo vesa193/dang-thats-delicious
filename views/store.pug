@@ -1,5 +1,7 @@
 extends layout
 
+include mixins/_reviewForm
+
 block content
     .single 
         .single__hero 
@@ -13,9 +15,12 @@ block content
         p.single__location= store.location.address 
         p= store.description
 
-        if store.tags 
+        if store.tags
             ul.tags 
                 each tag in store.tags
                     li.tag 
                         a.tag__link(href=`/tags/${tag}`)
                             span.tag__text ##{tag}
+        
+        if user
+            +reviewForm(store)

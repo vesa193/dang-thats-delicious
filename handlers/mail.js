@@ -22,7 +22,6 @@ transport.sendMail({
 });
 
 const generateHTML = (filename, options = {}) => {
-    console.log('HELLOOee', filename, __dirname, options);
     const html = pug.renderFile(`${__dirname}/../views/email/${filename}.pug`, options);
     const inlined = juice(html);
     return inlined;
